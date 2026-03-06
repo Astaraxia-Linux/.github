@@ -30,7 +30,7 @@ One dev. Too many ambitions. Somehow still going.
 
 ## Astaraxia's Software
 
-* **Astral** - The source-based package manager, written entirely in POSIX shell. Minimal, transparent, auditable, hackable, and never going to be rewritten in Rust. Currently at v5.0.0.0 with parallel builds/removals, GPG signing, certificate pinning, FIM, atomic transactions, built-in service management, a sandbox build system, and Horizon (the bootstrap system) built right in. About 10,000 lines of sh. Yes, really.
+* **Astral** - The source-based package manager, written entirely in POSIX shell. Minimal, transparent, auditable, hackable, and never going to be rewritten in Rust. Currently at V5.0.1.0 with parallel builds/removals, GPG signing, certificate pinning, FIM, atomic transactions, built-in service management, a sandbox build system, and Horizon (the bootstrap system) built right in. About 10,000 lines of sh. Yes, really.
 
 * **astral-env** - The declarative environment and system configuration layer. Describe your entire system -- packages, services, dotfiles, hostname, timezone, file snapshots -- in a `.stars` file and apply it all at once. Think NixOS-style reproducibility without the functional language headache. Also handles binary package installation. Written in C++20.
 
@@ -73,7 +73,7 @@ Astaraxia is functional but young. Here is where things actually stand:
 |---|---|
 | LFS bootstrap (chapters 1-8) | Done |
 | Horizon (3-stage bootstrap) | Working |
-| Astral package manager | Working (v5.0.0.0) |
+| Astral package manager | Working (V5.0.1.0) |
 | astral-env (declarative config) | Working (v1.0.0.0) |
 | astral-recipegen | Working (v2.2.0) |
 | Recipe index (AOHARU) | Small but growing (~10 packages) |
@@ -274,7 +274,7 @@ Astral takes the predictability and minimalism of Gentoo/Arch, the rollback and 
 
 * LFS bootstrap complete
 * Horizon 3-stage bootstrap system (built into Astral)
-* Astral package manager v5.0.0.0 -- parallel builds/removals, transactions, GPG, FIM, sandbox, service management
+* Astral package manager V5.0.1.0 -- parallel builds/removals, transactions, GPG, FIM, sandbox, service management
 * astral-env v1.0.0.0 -- declarative system config, file snapshots, GC, rollback
 * astral-recipegen v2.2.0 -- auto-detect, templates, migration, PKGBUILD import
 * Recipe format specification (v3 `.stars`)
