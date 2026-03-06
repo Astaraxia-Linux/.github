@@ -1,11 +1,11 @@
 # Astaraxia
 
-*A flexible, source-based Linux distribution that Aims for transparency, configurability, and reproducibility.*
+*A flexible, source-based Linux distribution built on transparency, configurability, and reproducibility.*
 
 > **Warning:**
-> Astaraxia is currently in a very early stage. The distribution and build system **do not exist in a usable form yet**. Proceed at your own existential risk.
+> Astaraxia is in early but active development. The distribution bootstraps and the package manager works - but expect rough edges, missing packages, and the occasional existential crisis.
 
-I'm just a single dev with too many ambitions and too little time. If I succeed, you'll see it here; if I fail, well, blame entropy.
+One dev. Too many ambitions. Somehow still going.
 
 ## Table of Contents
 
@@ -22,140 +22,249 @@ I'm just a single dev with too many ambitions and too little time. If I succeed,
 * [Contributing](#contributing)
 * [License](#license)
 
+---
+
 ## Astaraxia's Software
 
-Astaraxia doesn’t come with much yet, because, well… I’m still one person and sleep is a scam. But here’s what exists (or will exist) to torture your brain in a fun way:
+* **Astral** - The source-based package manager, written entirely in POSIX shell. Minimal, transparent, auditable, hackable, and never going to be rewritten in Rust. Currently at v5.0.0.0 with parallel builds/removals, GPG signing, certificate pinning, FIM, atomic transactions, built-in service management, and a sandbox build system. ~10,000 lines of sh. Yes, really.
 
-* **Astral** – The source-based package manager written entirely in POSIX shell. Minimal, transparent, auditable, hackable, and never going to be rewritten in Rust.
-* **Aras** – The rollback maestro, written entirely in POSIX shell (because why suffer in Rust?). Handles system rewinds with surgical precision, and yes, it’s never being rewritten in Rust.
-* **Future tools** – Build helpers, auditing scripts, quirky CLI utilities… all manual, all inspectable, all likely to make you question your life choices.
+* **astral-env** - The declarative environment and system configuration layer. Describe your entire system - packages, services, dotfiles, hostname, timezone, file snapshots - in a `.stars` file and apply it all at once. Think NixOS-style reproducibility without the functional language headache. Written in C++20.
 
-Every tool follows the same philosophy: if you can’t read it, you shouldn’t be using it. Inspectable, auditable, and painfully transparent—because why make it easy when you can make it *educational*?
+* **astral-recipegen** - Recipe generator for Astral. Auto-detects build systems (autotools, cmake, meson, python, make), generates v3 `.stars` recipes from a URL, converts old formats, and can even import Arch PKGBUILDs. Because writing boilerplate by hand is a crime.
+
+* **Future tools** - Build helpers, auditing scripts, quirky CLI utilities… all manual, all inspectable, all likely to make you question your life choices.
+
+Every tool follows the same philosophy: if you can't read it, you shouldn't be using it.
+
+---
 
 ## Overview
 
-Astaraxia is a Linux distribution designed around a unified hybrid package model. It aims to give users full control over their system by allowing both **binary installations** (hopefully) and fully **transparent source builds** via a custom package manager called **Astral**.
+Astaraxia is a Linux distribution built around a unified hybrid package model. It gives users full control over their system through transparent source builds via **Astral**, with declarative configuration management via **astral-env**.
 
-While inspired by source-based distributions, Astaraxia intends to remain straightforward to maintain, predictable in behavior, and fully reproducible. The project is currently in the planning phase. Also, no ISO exists yet, so don’t go looking for it.
+Inspired by source-based distributions but designed to stay approachable: predictable in behavior, fully reproducible, and bootstrappable from a standard LFS base.
+
+---
 
 ## Key Features
 
-Planned features include:
+* **Source-based**: packages build from recipes, you see everything that happens
+* **Declarative system config**: describe your system in `.stars` files, apply with one command
+* **Parallel builds and removals**: `--parallel-build`, `--parallel-remove`, `--parallel-removedep`
+* **Atomic transactions with rollback**: every operation is transactional, `--recover` handles interruptions
+* **File snapshots**: content-addressed, zstd-compressed, deduplicated via astral-env
+* **Init-system agnostic**: systemd, OpenRC, runit, s6, SysVinit - Astral handles all of them
+* **Security features**: GPG signing, Web of Trust, certificate pinning, FIM, audit trail, sandbox isolation
+* **Plain inspectable recipes**: `.stars` format inspired by QML and Nix - readable without a manual
+* **Minimal base**: bootstrapped via Linux From Scratch, nothing hidden
 
-* Hybrid build model: install packages by compiling from source or using binaries (your choice)
-* Plain, inspectable build recipes (hackers love this, and yes—even your two-year-old can read them without problems)
-* Minimal base system bootstrapped via Linux From Scratch (yes, really)
-* Deterministic, reproducible build pipeline
-* Unified package manager (Astral) for all software, including the base system
-
-Some features are **not implemented yet**, because I’m still dreaming about them.
+---
 
 ## Status
 
-Astaraxia is *not* a functional distribution. Currently:
+Astaraxia is functional but young. Here's where things actually stand:
 
-* Base system bootstrapping: LFS chapters 1–8 completed
-* Astral package manager: partially implemented (the fun part)
-* Initial core packages: mostly planned, some built
-* ISO release: non-existent
+| Component | Status |
+|---|---|
+| LFS bootstrap (chapters 1-8) |  Done |
+| Astral package manager |  Working (v5.0.0.0) |
+| astral-env (declarative config) |  Working (v1.0.0.0) |
+| astral-recipegen |  Working (v2.2.0) |
+| Recipe index (AOHARU) |  Small but growing (~10 packages) |
+| Community overlay (ASURA) |  Available, contributions welcome |
+| Base system packages |  Partial |
+| ISO release |  Not yet |
+| Binary package support |  Planned |
 
-## Installation / Bootstrapping - STAGE 1
+---
 
-Astaraxia cannot be installed yet. This section describes the *planned* bootstrap process.
+## Installation / Bootstrapping
 
 ### Prerequisites
 
-* Electricity (optional)
 * x86_64 CPU
-* ≥8GB RAM (compiling takes a toll on your sanity)
+* ≥8GB RAM (compiling is hungry)
 * ~25GB free disk
-* Working Linux system with build tools
-* Internet access (because wget and Astral *are* your friends)
+* Working Linux host with build tools
+* Internet access
+* Coffee (load-bearing dependency)
 
-### Planned Steps
+### Stage 1 - LFS Base
 
-1. Complete LFS Chapters 1–8 to build the initial toolchain. - DONE
-2. Configure `/etc`, `/usr`, kernel, etc. - PARTIALLY DONE
-3. Build the Astral package manager. - 1/4
-4. Use Astral to install core packages and build the base system.
-5. Init system: systemd (or something resembling it)
+Follow LFS chapters 1-8 to build the initial toolchain. This gives you a minimal bootable system with nothing interesting on it yet.
 
-Steps may evolve as I lose sleep, every single day :3.
+### Stage 2 - Install Astral
+
+```bash
+curl -O https://raw.githubusercontent.com/Astaraxia-Linux/Astral/main/astral
+chmod +x astral
+sudo mv astral /usr/bin/
+sudo astral --version    # initializes directories
+```
+
+Configure `/etc/astral/make.conf`:
+
+```bash
+CFLAGS="-O2 -pipe -march=native"
+CXXFLAGS="$CFLAGS"
+MAKEFLAGS="-j$(nproc)"
+CCACHE_ENABLED="yes"
+FEATURES="ccache parallel-make strip"
+```
+
+### Stage 3 - Install Core Packages
+
+```bash
+# Install base packages via Astral
+sudo astral -S e2fsprogs
+sudo astral -S neovim
+# ... etc
+```
+
+Or better yet, use astral-env to declare the whole system at once:
+
+### Stage 4 - Install astral-env
+
+```bash
+git clone https://github.com/Astaraxia-Linux/astral-env
+cd astral-env
+cmake -B build -DCMAKE_BUILD_TYPE=Release
+cmake --build build -j$(nproc)
+sudo cmake --install build
+```
+
+Enable it in `/etc/astral/astral.stars`:
+
+```
+$AST.core: {
+    astral-env        = "enabled"
+    astral-env-system = "enabled"
+};
+```
+
+### Stage 5 - Declare Your System
+
+```bash
+# Create system config
+sudo astral-env system init
+sudo astral-env system init-user yourname
+
+# Edit /etc/astral/env/env.stars to describe your system
+# Then apply everything at once:
+sudo astral-env system apply
+```
+
+From here, your entire system configuration lives in `.stars` files. Commit them to git. Fresh install → clone → apply → done.
+
+---
 
 ## Configuration
 
-Planned configuration will be stored in:
+### Astral (`/etc/astral/`)
 
 ```
-/etc/astral/config/
+/etc/astral/astral.stars     # global Astral config (feature flags, etc.)
+/etc/astral/make.conf        # compiler flags, ccache, parallel settings
+/etc/astral/package.mask     # masked package versions
+/etc/astral/virtuals/        # virtual package providers
 ```
 
-Expected options:
+### astral-env (`/etc/astral/env/`)
 
-* Default source/binary behavior
-* Global CFLAGS / CXXFLAGS / LDFLAGS
-* CCACHE
-* Repository locations (official + user-defined)
-* Parallel build settings
-* Feature toggles for optional dependencies
-* Init system selection
-* Cache locations and cleanup policies
+```
+/etc/astral/env/env.stars            # system-wide packages, services, hostname, timezone
+/etc/astral/env/<username>.stars     # per-user packages, dotfiles, environment vars
+/etc/astral/env/dotfiles/<username>/ # dotfile sources (symlinked to $HOME)
+```
+
+---
 
 ## Directory Layout
 
-Planned filesystem layout:
+```
+/usr/bin/astral                    # package manager
+/usr/bin/astral-env                # declarative config tool
+/usr/bin/astral-env-snapd          # snapshot daemon
+/usr/bin/astral-recipegen          # recipe generator
 
+/usr/src/astral/recipes/           # official package recipes (AOHARU)
+/etc/astral/                       # system configuration
+/var/cache/astral/src/             # cached source archives
+/var/cache/astral/bin/             # cached binary packages (future)
+/var/lib/astral/db/                # installed package metadata
+/var/log/astral/                   # build and install logs
+
+/astral-env/store/                 # astral-env content-addressed store
+/astral-env/snapshots/             # file snapshot index
 ```
-/usr/src/astral/recipes/      # official package recipes  
-/etc/astral/config/           # system-level configuration
-/etc/astral/config/$HOME/     # $HOME configuration
-/var/cache/astral/src/        # cached source archives  
-/var/cache/astral/bin/        # cached binary packages  
-/var/lib/astral/db/           # installed package metadata  
-/var/log/astral/              # logs for build failures and installs
-```
+
+---
 
 ## Goals
 
-* Fully transparent build system
-* Unified package management for source and binaries
-* Maintain reproducibility with auditable metadata
+* Fully transparent build system - every recipe is readable plain text
+* Unified package management for source and (eventually) binaries
+* Declarative, reproducible system configuration via astral-env
 * Keep the system minimal, predictable, rollbackable, and maintainable
 * Allow users to fully rebuild or inspect any component
-* Avoid unnecessary abstractions, because abstraction is betrayal
+* Avoid unnecessary abstractions - abstraction is betrayal
+* Never rewrite anything in Rust (this is load-bearing)
+
+---
 
 ## Astral Philosophy & Inspiration
 
-Astaraxia’s package manager, Astral, is heavily influenced by three distros I actually admire and daily-drive:
+| Trait | Arch/Gentoo | NixOS | Astaraxia |
+|---|---|---|---|
+| Minimal, hackable system | yes |  | yes |
+| Predictable builds | yes |  | yes |
+| Source-based control | yes |  | yes |
+| Binary convenience | yes |  |  Planned |
+| Rollbacks / transactional safety | yes |  | yes |
+| Declarative config | yes |  | yes |
+| Package recipes / ebuild-like | yes |  | yes |
+| Human-readable config syntax | yes |  | yes |
+| Init-system agnostic | yes |  | yes |
 
-| Trait                            | Arch/Gentoo | NixOS | Astral / Astaraxia |
-| -------------------------------- | ----------- | ----- | ------------------ |
-| Minimal, hackable system         | ✅           | ⚠️    | ✅                  |
-| Predictable builds               | ✅           | ✅     | ✅                  |
-| Source-based control             | ⚠️          | ⚠️    | ✅                  |
-| Binary convenience               | ⚠️          | ✅     | 🔧 Planned         |
-| Rollbacks / transactional safety | ⚠️          | ✅     | 🔧 In Development  |
-| Declarative config               | ⚠️          | ✅     | 🔧 Planned         |
-| Package recipes / ebuild-like    | ✅           | ⚠️    | ✅                  |
+Astral takes the **predictability and minimalism of Gentoo/Arch**, the **rollback and reproducibility of NixOS**, and keeps everything in **plain POSIX sh and readable `.stars` files**. No functional language required. No Rust either.
 
-In short: Astral takes the **predictability and minimalism of Gentoo/Arch**, and sprinkles in **Nix-style rollback**. All while staying painfully transparent and POSIX-compliant. Also, rewriting it in Rust for speed? Never happening.
+---
 
 ## Roadmap / TODO
 
-* Finish Linux From Scratch bootstrap (current: Chapter 8) - DONE
-* Implement Astral package manager (CLI + DB + recipe parser) - PARTIAL
-* Define recipe specification format - DONE
-* Build initial core packages (toolchain, libc, shell, base utilities) - PARTIAL
-* Add support for init systemd, openrc or sysV
-* Provide documentation and usage guides - PARTIAL
-* Prepare a minimal bootable ISO
-* Publish official binary package repository
-* Create developer documentation and naming conventions
+*  LFS bootstrap complete
+*  Astral package manager (v5.0.0.0) - parallel builds/removals, transactions, GPG, FIM, sandbox, service management
+*  astral-env (v1.0.0.0) - declarative system config, file snapshots, GC, rollback
+*  astral-recipegen (v2.2.0) - auto-detect, templates, migration, PKGBUILD import
+*  Recipe format specification (v3 `.stars`)
+*  Growing AOHARU recipe index
+*  Base system package set
+*  Init system integration (systemd/openrc/runit)
+*  Developer documentation
+*  Binary package support (`BINPKG_ENABLED`)
+*  Bootable ISO
+*  Official binary repository
+
+---
 
 ## Contributing
 
-Contributions, ideas, and discussions are welcome once core development begins. Guidelines will be added after the initial repository structure is finalized.
+The codebase is open and readable (it's literally shell scripts and C++). Contributions welcome:
+
+* **Recipes**: write a `.stars` recipe for a missing package, submit to [ASURA](https://codeberg.org/Izumi/ASURA)
+* **Bug reports**: if something breaks, open an issue - there's only one maintainer and he can't test everything
+* **astral-env**: C++20, cmake build system - see the astral-env repo
+* **Astral core**: POSIX sh only, no bashisms, keep it stupid simple
+
+Guidelines will get more formal as the project matures. For now: test your changes, write descriptive commit messages, don't rewrite anything in Rust.
+
+---
 
 ## License
 
-Documentation and tooling are planned to be licensed under the MIT License. Upstream packages retain their respective licenses.
+GPL-3.0 for Astral and astral-env. Upstream packages retain their respective licenses.
+
+---
+
+*"If I succeed, you'll see it here. If I fail, blame entropy."*  
+- One Maniac™, still going after 100 days
