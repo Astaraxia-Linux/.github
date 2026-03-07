@@ -32,7 +32,7 @@ One dev. Too many ambitions. Somehow still going.
 
 ## Astaraxia's Software
 
-* **Astral** - The source-based package manager, written entirely in POSIX shell. Minimal, transparent, auditable, hackable, and never going to be rewritten in Rust. Currently at v5.1.0.0 with parallel builds/removals, GPG signing, certificate pinning, FIM, atomic transactions, built-in service management, a sandbox build system, and Horizon (the bootstrap system) built right in. About 11,000 lines of sh. Yes, really. And it Means ***Astaraxia's Redevelopment in Advance**
+* **Astral** - The source-based package manager, written entirely in POSIX shell. Minimal, transparent, auditable, hackable, and never going to be rewritten in Rust. Currently at V5.3.0.0 with parallel builds/removals, GPG signing, certificate pinning, FIM, atomic transactions, built-in service management, a sandbox build system, and Horizon (the bootstrap system) built right in. About 11,000 lines of sh. Yes, really. And it Means ***Astaraxia's Redevelopment in Advance**
 
 * **astral-env** - The declarative environment and system configuration layer. Describe your entire system packages, services, dotfiles, hostname, timezone, file snapshots in a `.stars` file and apply it all at once. Think NixOS-style reproducibility without the functional language headache. Also handles binary package installation. Written in C++20. And it also Means ***Astaraxia's Redevelopment in Advance for the Enviroment**
 
@@ -90,7 +90,7 @@ Astaraxia is functional but young. Here is where things actually stand:
 |---|---|
 | LFS bootstrap (chapters 1-8) | Done |
 | Horizon (3-stage bootstrap) | Working |
-| Astral package manager | Working (v5.1.0.0) |
+| Astral package manager | Working (V5.3.0.0) |
 | astral-env (declarative config) | Working (v1.0.0.0) |
 | astral-recipegen | Working (v2.2.0) |
 | Recipe index (AOHARU) | Small but growing (84 packages) |
