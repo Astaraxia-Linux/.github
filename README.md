@@ -32,7 +32,7 @@ One dev. Too many ambitions. Somehow still going.
 
 ## Astaraxia's Software
 
-* **Astral** - The source-based package manager, written entirely in POSIX shell. Minimal, transparent, auditable, hackable, and never going to be rewritten in Rust. Currently at V5.3.0.0 with parallel builds/removals, GPG signing, certificate pinning, FIM, atomic transactions, built-in service management, a sandbox build system, and Horizon (the bootstrap system) built right in. About 11,000 lines of sh. Yes, really. And it Means ***Astaraxia's Redevelopment in Advance**
+* **Astral** - The source-based package manager, written entirely in POSIX shell. Minimal, transparent, auditable, hackable, and never going to be rewritten in Rust. Currently at V5.3.1.5 with parallel builds/removals, GPG signing, certificate pinning, FIM, atomic transactions, built-in service management, a sandbox build system, and Horizon (the bootstrap system) built right in. About 12,000 lines of sh. Yes, really. And it Means ***Astaraxia's Redevelopment in Advance**
 
 * **astral-env** - The declarative environment and system configuration layer. Describe your entire system packages, services, dotfiles, hostname, timezone, file snapshots in a `.stars` file and apply it all at once. Think NixOS-style reproducibility without the functional language headache. Also handles binary package installation. Written in C++20. And it also Means ***Astaraxia's Redevelopment in Advance for the Enviroment**
 
@@ -58,7 +58,7 @@ Codenames represent major shifts within the Astaraxia ecosystem.
 | Version | Astral version | Features |
 |---|---|---|
 | Yara | V0.0.0.1 - V5.0.0.0 | Self-Explainatory |
-| AZURE | V5+ | Astral-env and more |
+| AZURE | V5.0.0.0+ | Astral-env and more |
 
 If you're wondering why "AZURE" is in full caps, its an acryonm.
 It means:
@@ -90,8 +90,8 @@ Astaraxia is functional but young. Here is where things actually stand:
 |---|---|
 | LFS bootstrap (chapters 1-8) | Done |
 | Horizon (3-stage bootstrap) | Working |
-| Astral package manager | Working (V5.3.0.0) |
-| astral-env (declarative config) | Working (v1.0.0.0) |
+| Astral package manager | Working (V5.3.1.5) |
+| astral-env (declarative config) | Working (v1.1.0.0) |
 | astral-recipegen | Working (v2.2.0) |
 | Recipe index (AOHARU) | Small but growing (84 packages) |
 | Community overlay (ASURA) | Available, contributions welcome |
@@ -291,14 +291,14 @@ Astral takes the predictability and minimalism of Gentoo/Arch, the rollback and 
 
 * LFS bootstrap complete
 * Horizon 3-stage bootstrap system (built into Astral)
-* Astral package manager v5.3.0.0 -- parallel builds/removals, transactions, GPG, FIM, sandbox, service management
-* astral-env v1.0.0.0 -- declarative system config, file snapshots, GC, rollback
+* Astral package manager v5.3.1.5 -- parallel builds/removals, transactions, GPG, FIM, sandbox, service management
+* astral-env v1.1.0.0 -- declarative system config, file snapshots, GC, rollback
 * astral-recipegen v2.2.0 -- auto-detect, templates, migration, PKGBUILD import
 * Recipe format specification (v3 `.stars`)
 * Growing AOHARU recipe index (in progress)
 * Base system package set (in progress)
 * Developer documentation (in progress)
-* Binary package support via astral-env (planned)
+* Binary package support via astral-env (in progress)
 * Bootable ISO (planned)
 * Official binary repository (planned)
 
@@ -324,4 +324,4 @@ GPL-3.0 for Astral and astral-env. Upstream packages retain their respective lic
 ---
 
 *"If I succeed, you'll see it here. If I fail, blame entropy."*
--- One Maniac, still going after 101 days
+-- One Maniac, still going after 102 days (2025 - 11 - 26)
