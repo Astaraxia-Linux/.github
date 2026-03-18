@@ -58,7 +58,7 @@ Codenames represent major shifts within the Astaraxia ecosystem.
 | Version | Astral version | Features |
 |---|---|---|
 | Yara | V0.0.0.1 - V5.0.0.0 | Self-Explainatory |
-| AZURE | V5.0.0.0+ | Astral-env and more |
+| AZURE | V5.0.1.0+ | Astral-env and more |
 
 If you're wondering why "AZURE" is in full caps, its an acryonm.
 It means:
@@ -90,9 +90,10 @@ Astaraxia is functional but young. Here is where things actually stand:
 |---|---|
 | LFS bootstrap (chapters 1-8) | Done |
 | Horizon (3-stage bootstrap) | Working |
-| Astral package manager | Working (V5.3.1.5) |
+| Astral package manager | Working (V5.3.1.7) |
 | astral-env (declarative config) | Working (v1.1.0.0) |
-| astral-recipegen | Working (v2.2.0) |
+| astral-recipegen | Working (v3.0.0) |
+| astral-sync | Working (v1.1.6) |
 | Recipe index (AOHARU) | Small but growing (84 packages) |
 | Community overlay (ASURA) | Available, contributions welcome |
 | Base system packages | Partial |
@@ -309,8 +310,8 @@ Astral takes the predictability and minimalism of Gentoo/Arch, the rollback and 
 The codebase is open and readable (it's literally shell scripts and C++). Contributions are welcome:
 
 * **Recipes**: write a `.stars` recipe for a missing package and submit to [ASURA](https://codeberg.org/Izumi/ASURA)
-* **Bug reports**: if something breaks, open an issue -- there is only one maintainer and he cannot test everything
-* **astral-env**: C++20, cmake build -- see the astral-env repo
+* **Bug reports**: if something breaks, open an issue there is only one maintainer and he cannot test everything
+* **astral-env**: C++20, cmake build see the astral-env repo
 * **Astral core**: POSIX sh only, no bashisms, keep it stupid simple
 
 Guidelines will get more formal as the project matures. For now: test your changes, write descriptive commit messages, do not rewrite anything in Rust.
@@ -324,4 +325,4 @@ GPL-3.0 for Astral and astral-env. Upstream packages retain their respective lic
 ---
 
 *"If I succeed, you'll see it here. If I fail, blame entropy."*
--- One Maniac, still going after 102 days (2025 - 11 - 26)
+-- One Maniac, still going after 112 days (2025 - 11 - 26)
